@@ -64,11 +64,11 @@ class Protocol(asynchat.async_chat):
             command += ":"
         if data:
             pdata = pickle.dumps(data)
-            command += str(len(pdata))
+            command += str(len(pdata)) # 标准TLV, \n is the seperator.
             logging.debug( "<- %s" % command)
             self.push(command + "\n" + pdata)
         else:
-            logging.debug( "<- %s" % command)
+            logging.debug( "<- %s" % command) # only command type, no argument.
             self.push(command + "\n")
 
     def found_terminator(self):
